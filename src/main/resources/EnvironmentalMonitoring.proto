@@ -37,7 +37,7 @@ message EnvironmentalCondition {
   // Timestamp of the environmental condition data
   string timestamp = 1;
 
-  // Type of environmental condition (e.g., temperature, humidity)
+  // Type of environmental condition
   string type = 2;
 
   // Value of the environmental condition
