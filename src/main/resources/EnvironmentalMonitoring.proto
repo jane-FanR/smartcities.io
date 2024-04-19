@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option java_package = "org.ruojiefan.smartcities";
+
+// Environmental Monitoring Service definition
+service EnvironmentalMonitoring {
+  // RPC method to monitor environmental conditions (Simple RPC)
+  rpc MonitorEnvironmentalConditions (EnvironmentalConditionsRequest) returns (EnvironmentalConditionsResponse) {}
+
+  // Server-side Streaming RPC method to continuously monitor environmental conditions
+  rpc ContinuousEnvironmentalMonitoring (EnvironmentalConditionsRequest) returns (stream EnvironmentalCondition) {}
+
+  // Client-side Streaming RPC method to send multiple environmental conditions for monitoring
+  rpc StreamEnvironmentalConditions (stream EnvironmentalCondition) returns (EnvironmentalConditionsResponse) {}
+
+  // Bidirectional Streaming RPC method for interactive monitoring of environmental conditions
+  rpc InteractiveEnvironmentalMonitoring (stream EnvironmentalConditionsRequest) returns (stream EnvironmentalCondition) {}
+}
+
+// Message for requesting environmental conditions monitoring
+message EnvironmentalConditionsRequest {
+  // Location to monitor environmental conditions
+  string location = 1;
+}
+
+// Message for environmental conditions response
+message EnvironmentalConditionsResponse {
+  // Environmental conditions data for the requested location
+  repeated EnvironmentalCondition conditionData = 1;
+
+  // Additional metadata or status information
+  string status = 2;
+}
+
+// Message to represent environmental condition data
+message EnvironmentalCondition {
+  // Timestamp of the environmental condition data
+  string timestamp = 1;
+
+  // Type of environmental condition (e.g., temperature, humidity)
+  string type = 2;
+
+  // Value of the environmental condition
+  float value = 3;
+}

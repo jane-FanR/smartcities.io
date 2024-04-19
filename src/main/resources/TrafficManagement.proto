@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+option java_package = "org.ruojiefan.smartcities";
+
+
+// Traffic Management Service definition
+service TrafficManagement {
+  // RPC method to monitor traffic flow
+  rpc MonitorTrafficFlow (TrafficFlowRequest) returns (TrafficFlowResponse) {}
+
+  // RPC method to control traffic signals
+  rpc ControlTrafficSignals (TrafficSignalControlRequest) returns (TrafficSignalControlResponse) {}
+
+  // RPC method to optimize traffic routes
+  rpc OptimizeTrafficRoutes (TrafficRouteOptimizationRequest) returns (TrafficRouteOptimizationResponse) {}
+
+  // RPC method for updating traffic patterns (Client-side Streaming)
+  rpc UpdateTrafficPatterns (stream TrafficPattern) returns (TrafficPatternUpdateResponse) {}
+
+  // RPC method for real-time traffic updates (Bidirectional Streaming)
+  rpc RealTimeTrafficUpdates (stream RealTimeTrafficUpdate) returns (stream RealTimeTrafficUpdate) {}
+}
+
+// Message for requesting traffic flow monitoring
+message TrafficFlowRequest {
+  string location = 1;
+  string startTime = 2;
+  string endTime = 3;
+}
+
+// Message for traffic flow data response
+message TrafficFlowResponse {
+  // Traffic flow data for the requested location and time range
+  repeated TrafficFlowData flowData = 1;
+
+  // Additional metadata or status information
+  string status = 2;
+}
+
+// Message to represent traffic flow data
+message TrafficFlowData {
+  // Timestamp of the traffic flow data
+  string timestamp = 1;
+
+  // Number of vehicles detected at the location
+  int32 vehicleCount = 2;
+
+  // Average vehicle speed at the location
+  float averageSpeed = 3;
+
+}
+
+// Message for controlling traffic signals request
+message TrafficSignalControlRequest {
+  // Parameters to control traffic signals
+
+  string signalId = 1;
+  int32 newTiming = 60; // Default: 60 seconds
+}
+
+// Message for traffic signal control response
+message TrafficSignalControlResponse {
+  // Status of the traffic signal control action
+  string status = 1;
+
+  // Additional details or error messages if applicable
+  string message = 2;
+}
+
+// Message for optimizing traffic routes request
+message TrafficRouteOptimizationRequest {
+  // Parameters for optimizing traffic routes
+
+  string origin = 1;
+  string destination = 2;
+}
+
+// Message for traffic route optimization response
+message TrafficRouteOptimizationResponse {
+  // Optimized routes data
+  repeated RouteOptimizationData routes = 1;
+
+  // Additional metadata or status information
+  string status = 2;
+}
+
+// Message to represent optimized route data
+message RouteOptimizationData {
+  // Origin of the route
+  string origin = 1;
+
+  // Destination of the route
+  string destination = 2;
+
+  // Optimized path or waypoints
+  repeated string path = 3;
+
+  // Estimated travel time for the route
+  string estimatedTravelTime = 4;
+
+}
+
+// Message for traffic patterns
+message TrafficPattern {
+  string patternId = 1;
+  string patternDescription = 2;
+}
+
+// Message for the response to updating traffic patterns
+message TrafficPatternUpdateResponse {
+  // Response status
+  string status = 1;
+
+  // Response message
+  string message = 2;
+}
+
+// Message for real-time traffic updates
+message RealTimeTrafficUpdate {
+  string updateId = 1;
+  string updateDescription = 2;
+  string status = 3;
+  string message = 4;
+}

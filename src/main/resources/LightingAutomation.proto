@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option java_package = "org.ruojiefan.smartcities";
+
+// Lighting Service definition
+service LightingAutomation {
+  // Simple RPC method to adjust light intensity
+  rpc AdjustLightIntensity (LightIntensityAdjustmentRequest) returns (LightIntensityAdjustmentResponse) {}
+
+  // Server-side Streaming RPC method to continuously adjust light intensity
+  rpc ContinuousAdjustment (ContinuousAdjustmentRequest) returns (stream LightIntensityAdjustmentResponse) {}
+
+  // Client-side Streaming RPC method to send multiple light intensity adjustments
+  rpc StreamAdjustments (stream LightIntensityAdjustmentRequest) returns (LightIntensityAdjustmentResponse) {}
+
+  // Bidirectional Streaming RPC method for interactive adjustment of light intensity
+  rpc InteractiveAdjustment (stream InteractiveAdjustmentRequest) returns (stream InteractiveAdjustmentResponse) {}
+}
+
+// Message for adjusting light intensity
+message LightIntensityAdjustmentRequest {
+  float intensity_percentage = 1;
+}
+
+// Message for the response to adjusting light intensity
+message LightIntensityAdjustmentResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Message for continuous adjustment request
+message ContinuousAdjustmentRequest {
+  float initial_intensity_percentage = 1;
+}
+
+// Message for interactive adjustment request
+message InteractiveAdjustmentRequest {
+  float intensity_percentage = 1;
+}
+
+// Message for interactive adjustment response
+message InteractiveAdjustmentResponse {
+  bool success = 1;
+  string message = 2;
+}
