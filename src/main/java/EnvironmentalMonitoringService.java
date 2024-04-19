@@ -2,7 +2,6 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import org.ruojiefan.smartcities.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ public class EnvironmentalMonitoringService extends EnvironmentalMonitoringGrpc.
     @Override
     public void monitorEnvironmentalConditions(EnvironmentalMonitoringOuterClass.EnvironmentalConditionsRequest request, StreamObserver<EnvironmentalMonitoringOuterClass.EnvironmentalConditionsResponse> responseObserver) {
         // Implement Simple RPC to monitor environmental conditions
-        // Dummy implementation: returning static data
+        // Implementation: returning static data
         List<EnvironmentalMonitoringOuterClass.EnvironmentalCondition> conditionList = new ArrayList<>();
         conditionList.add(
                 EnvironmentalMonitoringOuterClass.EnvironmentalCondition.newBuilder()
@@ -41,7 +40,7 @@ public class EnvironmentalMonitoringService extends EnvironmentalMonitoringGrpc.
     @Override
     public void continuousEnvironmentalMonitoring(EnvironmentalMonitoringOuterClass.EnvironmentalConditionsRequest request, StreamObserver<EnvironmentalMonitoringOuterClass.EnvironmentalCondition> responseObserver) {
         // Implement Server-side Streaming RPC for continuous monitoring of environmental conditions
-        // Dummy implementation: sending static data every second
+        // Implementation: sending static data every second
         float temperature = 25.5f;
         float humidity = 60.0f;
 
